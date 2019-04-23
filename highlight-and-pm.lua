@@ -2,6 +2,7 @@
 -- (C) 2017 Svetlana Tkachenko <svetlana@members.fsf.org>
 -- Derived work from pmcolor.lua (by Patrick Griffis)
 --   Include PMs (2017/11/12, S.T.)
+--   Include Private Actions (2019/04/23, S.T.)
 -- 
 -- The MIT License (MIT)
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -21,7 +22,7 @@
 -- IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 -- CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-hexchat.register('Highlights (including PMs)', '1', 'Prints highlights to another tab')
+hexchat.register('Highlights (including PMs)', '1.1', 'Prints highlights to another tab')
 
 local TAB_NAME = '(highlights)'
 local OPEN_PER_SERVER = false
@@ -59,6 +60,8 @@ local function on_highlight (args, event_type)
 		format = '\00322%s\t\002\00318%s%s%s\015 %s'
 	elseif event_type == 'Private Message to Dialog' then
 		format = '\00322%s\t\00318<%s%s%s>\015 %s'
+	elseif event_type == 'Private Action to Dialog' then
+		format = '\00322%s\t\002\00318<%s%s%s>\015 %s'
 	end
 
 	highlight_context:print(string.format(format, channel,
